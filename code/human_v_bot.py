@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import print_function
 # tag::play_against_your_bot[]
 from dlgo import agent
