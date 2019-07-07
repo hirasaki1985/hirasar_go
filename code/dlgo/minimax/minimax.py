@@ -46,9 +46,16 @@ def best_result(game_state):
 # tag::minimax-recursive-case[]
     best_result_so_far = GameResult.loss
     for candidate_move in game_state.legal_moves():
+        # この手をとった場合、ボードがどうなるか調べる
         next_state = game_state.apply_move(candidate_move)     # <1>
+
+        # 相手の最前の手を見つける
         opponent_best_result = best_result(next_state)         # <2>
+
+        # 相手が望む手と反対の手を求める
         our_result = reverse_game_result(opponent_best_result) # <3>
+
+        # この結果がこれまで調べた中で最高の結果より良いか確認する
         if our_result.value > best_result_so_far.value:        # <4>
             best_result_so_far = our_result
     return best_result_so_far
