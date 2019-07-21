@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import print_function
 
 # tag::mcts_go_cnn_preprocessing[]
@@ -23,16 +25,35 @@ Y_train, Y_test = Y[:train_samples], Y[train_samples:]
 
 # tag::mcts_go_cnn_model[]
 model = Sequential()
+"""
 model.add(Conv2D(32, kernel_size=(3, 3),
                  activation='relu',
                  input_shape=input_shape))
+"""
+
+# filter = 48
+# 3×3の畳み込みカーネルを選択する
+# 通常、畳み込みの出力は入力よりも小さくなる。
+# padding = 'same'を追加することで、Kerasに行列をエッジの周りに０で埋めるようにできるため、出力は入力と同じ次元を持つようになる。
+model.add(Conv2D(filters=48,  # <1>
+                 kernel_size=(3, 3),  # <2>
+                 activation='sigmoid',
+                 padding='same',
+                 input_shape=input_shape))
+
 model.add(Dropout(rate=0.6))
 model.add(Conv2D(64, (3, 3), activation='relu'))
+
+# 最大プーリング
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(rate=0.6))
+
+# 平坦化
 model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 model.add(Dropout(rate=0.6))
+
+# ソフトマックス
 model.add(Dense(size * size, activation='softmax'))
 model.summary()
 
