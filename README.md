@@ -42,3 +42,9 @@ $ python code/generate_mcts_games.py -n 20 --board-out feature.npy --move-out la
 $ python code/chapter_6_cnn/mcts_go_mlp.py
 ```
 
+### section 7
+KGSから棋譜データをダウンロード
+```
+$ python code/dlgo/data/index_processor.py
+```
+

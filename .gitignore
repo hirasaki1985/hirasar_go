@@ -115,4 +115,5 @@ stem*.png
 
 ./kgs_index.html
 ./data
+*.tar.gz
 
